@@ -1,0 +1,111 @@
+
+
+<!DOCTYPE html>
+{%load static%}
+<html>
+<head>
+    <title>charging Mode Information</title>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: black;
+
+        }
+        .container {
+            display: flex;
+          }
+          
+          .image-container {
+            flex: 1;
+          }
+          
+          .image-container img {
+            width: 100%;
+            height: auto;
+            margin-top: 100px;
+          }
+          
+          .text-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px;
+            color: white;
+            margin-top: -39px;
+          }
+          
+          .text-container h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-align: center;
+          }
+          
+          .text-container p {
+            font-size: 22px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #00ecff;
+          }
+          .modebutton{
+            background-color: #00ffba;
+            padding: 15px 32px;
+            border-radius: 14px;
+            color: black;
+            font-size: 14px;
+
+          }
+        
+          
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+          <img src="{% static 'resources/images/mode.jpg' %}" alt="your-image-alt-text">
+        </div>
+        <div class="text-container">
+         
+          <h1>Mode of Charging</h1>
+          <p id="charging-mode">{{charging_mode.mode}}</p>
+          {%if below %}
+          <form method="post" style="display:flex" action="{% url 'charging_mode_details' car_id %}">
+            {% csrf_token %}
+              <button class="modebutton" type="submit">Change mode</button>
+              <button class="modebutton" style="background-color: #00ffba;" ><a href="/home" type="button">Back to home</a></button>
+          
+          </form>
+          {%endif%}
+          {%if above %}
+          <form method="post" action="{% url 'charging_mode_details' car_id %}">
+            {%csrf_token%}<button class="modebutton" type="submit">Change mode</form>
+            <button class="modebutton" ><a href="/home" type="button">Back to home</a></button>
+
+         
+          {%endif%}
+        </div>
+      </div>
+      
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var car_id = "{{car_id}} "
+        
+            function updateMode() {
+                $.getJSON('/charging-mode/' + car_id , function(data) {
+
+                    $('#charging-mode').text(data.charging_mode);
+                });
+        
+                setTimeout(updateMode, 9000000); 
+            }
+        
+            updateMode();
+        });
+    </script> -->
+</body>
+</html>
